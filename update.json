@@ -1,7 +1,7 @@
 {
-  "versionCode": 61,
-  "versionName": "5.8",
-  "url": "https://github.com/xiaoyu4124/katan-release/releases/download/v5.8/KaTan_5.8.apk",
+  "versionCode": 62,
+  "versionName": "5.9",
+  "url": "https://github.com/xiaoyu4124/katan-release/releases/download/v5.9/KaTan_5.9.apk",
   "force": false,
-  "notes": "卡探 5.8\n\n· 新增「藏匿目录」：按模板逐级创建仿回收站 / CLSID 伪装路径，建完直接进入\n· 长按文件或文件夹可隐藏 / 取消隐藏（. 前缀）\n· 检查更新与强制更新接入本更新源"
+  "notes": "卡探 5.9\n\n· 修复空白处长按无反应：手指轻微抖动不再取消长按\n· 「此文件夹为空」等提示行长按也会弹菜单\n· 更新源已切到公开仓库"
 }
