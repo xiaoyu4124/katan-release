@@ -1,11 +1,13 @@
 {
-  "versionCode": 72,
-  "versionName": "5.19",
-  "url": "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.19.apk",
+  "versionCode": 73,
+  "versionName": "5.20",
+  "url": "https://ghfast.top/https://github.com/xiaoyu4124/katan-release/releases/download/v5.20/KaTan_5.20.apk",
   "urls": [
-    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.19.apk",
-    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.19/KaTan_5.19.apk"
+    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.20.apk",
+    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.20.apk",
+    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.20/KaTan_5.20.apk",
+    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.20.apk"
   ],
   "force": false,
-  "notes": "卡探 5.19\n\n· 更新源顺序修正：Gitee → GitHub raw → jsDelivr 兜底\n· 避开 jsDelivr 对 update.json 的 12 小时缓存（否则会读到旧版本）\n· APK 仍走 jsDelivr 直连（按版本号命名，无缓存问题）"
+  "notes": "卡探 5.20\n\n· 新增 ghfast.top 加速镜像（国内直连、无需令牌）\n· 检查更新多源自动切换，单源 6 秒超时\n· APK 下载多镜像依次重试"
 }
