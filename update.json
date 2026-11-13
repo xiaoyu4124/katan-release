@@ -1,11 +1,11 @@
 {
-  "versionCode": 70,
-  "versionName": "5.17",
-  "url": "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.17.apk",
+  "versionCode": 71,
+  "versionName": "5.18",
+  "url": "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.18.apk",
   "urls": [
-    "https://gitee.com/xiaoyu4124/katan-release/raw/master/apk/KaTan_5.17.apk",
-    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.17/KaTan_5.17.apk"
+    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.18.apk",
+    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.18/KaTan_5.18.apk"
   ],
   "force": false,
-  "notes": "卡探 5.17\n\n· 更新检查与下载均多源自动切换（Gitee / jsDelivr / GitHub）\n· 单源 6 秒超时即换源，不再长时间卡住"
+  "notes": "卡探 5.18\n\n· 更新源多源自动切换：Gitee → jsDelivr → GitHub\n· APK 走 jsDelivr 直连，不再等 github.com\n· Gitee 地址修正为 yu1481726037"
 }
