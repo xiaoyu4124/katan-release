@@ -1,7 +1,7 @@
 {
-  "versionCode": 68,
-  "versionName": "5.15",
-  "url": "https://github.com/xiaoyu4124/katan-release/releases/download/v5.15/KaTan_5.15.apk",
+  "versionCode": 69,
+  "versionName": "5.16",
+  "url": "https://github.com/xiaoyu4124/katan-release/releases/download/v5.16/KaTan_5.16.apk",
   "force": false,
-  "notes": "卡探 5.15\n\n· 移除四项假隐藏入口：打开隐藏区、安全柜、新建藏匿目录、新建隐藏文件夹\n· 相关代码一并删除，普通管理器能看见的一律不再提供\n· 保留 OTG 裸写四步向导（唯一真隐藏路径，不需 root）\n· 校验 ba374f7d84f27caf930c8538b75a8efdfe3670a4ec855d2e02f9bb0272101fde"
+  "notes": "卡探 5.16\n\n· 复制/移动「一点直达对侧窗口」，长按放剪贴板\n· 带 · 的菜单支持长按单窗口操作\n· 传入/完成均有提示"
 }
