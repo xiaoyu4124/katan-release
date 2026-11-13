@@ -1,14 +1,14 @@
 {
-  "versionCode": 74,
-  "versionName": "5.21",
-  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.21.apk",
+  "versionCode": 75,
+  "versionName": "5.22",
+  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.22.apk",
   "urls": [
-    "https://aka.doubaocdn.com/s/G5fDY0QJwo",
-    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.21.apk",
-    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.21/KaTan_5.21.apk",
-    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.21.apk",
-    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.21.apk"
+    "https://aka.doubaocdn.com/s/JN4RAtEZPP",
+    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.22.apk",
+    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.22/KaTan_5.22.apk",
+    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.22.apk",
+    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.22.apk"
   ],
   "force": false,
-  "notes": "卡探 5.21\n\n· APK 主源换成 raw.githubusercontent（你手机上唯一实际连通过的域名）\n· 失败弹窗逐源报告，可一键用浏览器下载\n· 豆包CDN / jsDelivr / Release / ghfast / Gitee 依次兑底"
+  "notes": "卡探 5.22\n\n· 更新弹窗改成 MT 那种底部卡片：顶部提示 + 右上关闭，下面标题与版本信息\n· 底部两列图标选项，主操作带蓝点\n· 下载失败也同样是卡片，逐源列出 ✗ 原因，可一键浏览器下载"
 }
