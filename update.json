@@ -1,0 +1,7 @@
+{
+  "versionCode": 61,
+  "versionName": "5.8",
+  "url": "https://github.com/xiaoyu4124/katan-release/releases/download/v5.8/KaTan_5.8.apk",
+  "force": false,
+  "notes": "卡探 5.8\n\n· 新增「藏匿目录」：按模板逐级创建仿回收站 / CLSID 伪装路径，建完直接进入\n· 长按文件或文件夹可隐藏 / 取消隐藏（. 前缀）\n· 检查更新与强制更新接入本更新源"
+}
