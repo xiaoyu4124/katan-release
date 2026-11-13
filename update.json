@@ -1,11 +1,11 @@
 {
-  "versionCode": 71,
-  "versionName": "5.18",
-  "url": "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.18.apk",
+  "versionCode": 72,
+  "versionName": "5.19",
+  "url": "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.19.apk",
   "urls": [
-    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.18.apk",
-    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.18/KaTan_5.18.apk"
+    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.19.apk",
+    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.19/KaTan_5.19.apk"
   ],
   "force": false,
-  "notes": "卡探 5.18\n\n· 更新源多源自动切换：Gitee → jsDelivr → GitHub\n· APK 走 jsDelivr 直连，不再等 github.com\n· Gitee 地址修正为 yu1481726037"
+  "notes": "卡探 5.19\n\n· 更新源顺序修正：Gitee → GitHub raw → jsDelivr 兜底\n· 避开 jsDelivr 对 update.json 的 12 小时缓存（否则会读到旧版本）\n· APK 仍走 jsDelivr 直连（按版本号命名，无缓存问题）"
 }
