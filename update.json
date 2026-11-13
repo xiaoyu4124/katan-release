@@ -1,7 +1,7 @@
 {
-  "versionCode": 65,
-  "versionName": "5.12",
-  "url": "https://github.com/xiaoyu4124/katan-release/releases/download/v5.12/KaTan_5.12.apk",
+  "versionCode": 68,
+  "versionName": "5.15",
+  "url": "https://github.com/xiaoyu4124/katan-release/releases/download/v5.15/KaTan_5.15.apk",
   "force": false,
-  "notes": "卡探 5.12\n\n· 新增「隐藏区」入口：长按空白处 / ⋮ 菜单，进卡探测尾点目录，命中直接进入\n· 没预置的卡可一键把 tf_hide.py 下到 Download/，插读卡器到电脑跑一次 deploy\n· 配套工具仓 https://github.com/xiaoyu4124/tf-hide"
+  "notes": "卡探 5.15\n\n· 移除四项假隐藏入口：打开隐藏区、安全柜、新建藏匿目录、新建隐藏文件夹\n· 相关代码一并删除，普通管理器能看见的一律不再提供\n· 保留 OTG 裸写四步向导（唯一真隐藏路径，不需 root）\n· 校验 ba374f7d84f27caf930c8538b75a8efdfe3670a4ec855d2e02f9bb0272101fde"
 }
