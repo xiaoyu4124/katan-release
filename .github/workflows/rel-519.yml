@@ -1,0 +1,47 @@
+name: rel-519
+
+on:
+  push:
+    paths:
+      - ".github/workflows/rel-519.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch assets
+        run: |
+          curl -fsSL -o KaTan_5.19.apk "https://aka.doubaocdn.com/s/fJIbVkLTTU"
+          curl -fsSL -o KaTan-5.19-source.zip "https://aka.doubaocdn.com/s/FT2MWiPRH4"
+          echo "3a7d3626ec65c95df83d5fb1eea341d5c12601313c6f904c11e14aac26ce7f9b  KaTan_5.19.apk" | sha256sum -c
+          echo "d757d846e24dba9df181a2374959ae78cd9866d2b2e60a0a5db0d856694425af  KaTan-5.19-source.zip" | sha256sum -c
+          mkdir -p apk
+          cp KaTan_5.19.apk apk/KaTan_5.19.apk
+      - name: Commit apk and publish feed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat > update.json <<'JSON'
+          {
+            "versionCode": 72,
+            "versionName": "5.19",
+            "url": "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.19.apk",
+            "urls": [
+              "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.19.apk",
+              "https://github.com/xiaoyu4124/katan-release/releases/download/v5.19/KaTan_5.19.apk"
+            ],
+            "force": false,
+            "notes": "卡探 5.19\n\n· 更新源顺序修正：Gitee → GitHub raw → jsDelivr 兜底\n· 避开 jsDelivr 对 update.json 的 12 小时缓存（否则会读到旧版本）\n· APK 仍走 jsDelivr 直连（按版本号命名，无缓存问题）"
+          }
+          JSON
+          python3 -m json.tool update.json > /dev/null
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add apk/KaTan_5.19.apk update.json
+          git commit -m "release: 5.19 apk + feed v72"
+          git push
+          gh release create v5.19 KaTan_5.19.apk KaTan-5.19-source.zip --title "卡探 5.19 · 源顺序修正" --latest --notes-file <(printf '卡探 5.19\n\n· 更新源：Gitee -> GitHub raw -> jsDelivr（避开 jsDelivr 的 update.json 缓存）\n· APK 直连 jsDelivr，按版本号命名\n\n校验值：\n3a7d3626ec65c95df83d5fb1eea341d5c12601313c6f904c11e14aac26ce7f9b  KaTan_5.19.apk (156436 B)\nd757d846e24dba9df181a2374959ae78cd9866d2b2e60a0a5db0d856694425af  卡探-5.19-源码.zip\n')
