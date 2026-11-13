@@ -1,7 +1,7 @@
 {
-  "versionCode": 64,
-  "versionName": "5.11",
-  "url": "https://github.com/xiaoyu4124/katan-release/releases/download/v5.11/KaTan_5.11.apk",
+  "versionCode": 65,
+  "versionName": "5.12",
+  "url": "https://github.com/xiaoyu4124/katan-release/releases/download/v5.12/KaTan_5.12.apk",
   "force": false,
-  "notes": "卡探 5.11\n\n· 新增「安全柜」：Android/data/com.cardprobe/files/vault，普通管理器进不来\n· 藏匿目录降级为诱饵壳，自动落 .nomedia 并说明边界\n· ⋮ 菜单 / 空白长按 均可进入安全柜"
+  "notes": "卡探 5.12\n\n· 新增「隐藏区」入口：长按空白处 / ⋮ 菜单，进卡探测尾点目录，命中直接进入\n· 没预置的卡可一键把 tf_hide.py 下到 Download/，插读卡器到电脑跑一次 deploy\n· 配套工具仓 https://github.com/xiaoyu4124/tf-hide"
 }
