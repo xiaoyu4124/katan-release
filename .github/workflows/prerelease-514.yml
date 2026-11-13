@@ -1,0 +1,44 @@
+name: prerelease-514
+
+on:
+  push:
+    paths:
+      - ".github/workflows/prerelease-514.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  prerelease:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch assets
+        run: |
+          curl -fsSL -o KaTan_5.14.apk "https://aka.doubaocdn.com/s/hukc2vydpe"
+          curl -fsSL -o KaTan-5.14-source.zip "https://aka.doubaocdn.com/s/gU1O5ByUUs"
+          echo "2a53aa07b74579686a962564e4a7f899d6089472389a34f2a53a5559941eb7d9  KaTan_5.14.apk" | sha256sum -c
+          echo "b0ed6d5722f64767217ebcba67eeb6ae1f88e0091c9f71ffbae0fa5a94e9d2de  KaTan-5.14-source.zip" | sha256sum -c
+      - name: Publish prerelease
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat > /tmp/notes.md <<'EOF'
+          卡探 5.14 测试版 · OTG 四步向导
+
+          这一版只改引导，不动底层：长按空白处 →「OTG 裸写：在卡上生成隐藏区」，弹出的是四步向导，自动轮询状态、该做哪步就把按钮变成那一步。
+
+          ① 读卡器：插好会显示型号，没插会提示用带数据的 OTG 线和读卡器
+          ② USB 授权：没授权按钮就是「授权 USB」，弹窗选允许
+          ③ 卸载：探测后如果系统还挂着卡，按钮变「去设置弹出」，弹出后自动变✓
+          ④ 探测结果：UUID、簇大小、四层目录有/没有
+
+          四步全绿后按钮变「写入生成」。写入的扇区全部先记日志到 Download/otg_journal_*.bin。
+
+          校验值：
+          2a53aa07b74579686a962564e4a7f899d6089472389a34f2a53a5559941eb7d9  KaTan_5.14.apk (160532 B)
+          b0ed6d5722f64767217ebcba67eeb6ae1f88e0091c9f71ffbae0fa5a94e9d2de  卡探-5.14-源码.zip (133876 B)
+
+          update.json 仍指向 5.12，不会自动推送。
+          EOF
+          gh release create v5.14 KaTan_5.14.apk KaTan-5.14-source.zip --title "卡探 5.14 测试版 · OTG 四步向导" --prerelease --notes-file /tmp/notes.md
