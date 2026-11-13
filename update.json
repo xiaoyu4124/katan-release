@@ -1,7 +1,11 @@
 {
-  "versionCode": 69,
-  "versionName": "5.16",
-  "url": "https://github.com/xiaoyu4124/katan-release/releases/download/v5.16/KaTan_5.16.apk",
+  "versionCode": 70,
+  "versionName": "5.17",
+  "url": "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.17.apk",
+  "urls": [
+    "https://gitee.com/xiaoyu4124/katan-release/raw/master/apk/KaTan_5.17.apk",
+    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.17/KaTan_5.17.apk"
+  ],
   "force": false,
-  "notes": "卡探 5.16\n\n· 复制/移动「一点直达对侧窗口」，长按放剪贴板\n· 带 · 的菜单支持长按单窗口操作\n· 传入/完成均有提示"
+  "notes": "卡探 5.17\n\n· 更新检查与下载均多源自动切换（Gitee / jsDelivr / GitHub）\n· 单源 6 秒超时即换源，不再长时间卡住"
 }
