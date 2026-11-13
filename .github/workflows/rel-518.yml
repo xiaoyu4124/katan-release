@@ -1,0 +1,67 @@
+name: rel-518
+
+on:
+  push:
+    paths:
+      - ".github/workflows/rel-518.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch assets
+        run: |
+          curl -fsSL -o KaTan_5.18.apk "https://aka.doubaocdn.com/s/NjmrknglVG"
+          curl -fsSL -o KaTan-5.18-source.zip "https://aka.doubaocdn.com/s/UfDyqogBBe"
+          echo "834643b5e735f98c5180c5e02dd80de88a14b54d578841f6c724c45393b73e17  KaTan_5.18.apk" | sha256sum -c
+          echo "f0bc1ccbbe4915103f52569e1357b61729b810de0a15862e0cd8824561ce50d7  KaTan-5.18-source.zip" | sha256sum -c
+          mkdir -p apk
+          cp KaTan_5.18.apk apk/KaTan_5.18.apk
+      - name: Commit apk for jsDelivr
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add apk/KaTan_5.18.apk
+          git commit -m "repo: 5.18 APK for jsDelivr"
+          git push
+      - name: Publish release and feed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat > /tmp/notes.md <<'EOF'
+          卡探 5.18 · Gitee 源地址修正
+
+          · 确认 Gitee 账号实际路径是 yu1481726037，更新源列表里的 Gitee 地址已改成
+            https://gitee.com/yu1481726037/katan-release/raw/master/update.json
+          · 优先级不变：Gitee → jsDelivr → GitHub，单源 6 秒超时即换源
+          · APK 主下载走 jsDelivr（实测 200 / 156436 B / 哈希一致）
+
+          jsDelivr 直链：
+          https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.18.apk
+
+          校验值：
+          834643b5e735f98c5180c5e02dd80de88a14b54d578841f6c724c45393b73e17  KaTan_5.18.apk (156436 B)
+          f0bc1ccbbe4915103f52569e1357b61729b810de0a15862e0cd8824561ce50d7  卡探-5.18-源码.zip
+          EOF
+          gh release create v5.18 KaTan_5.18.apk KaTan-5.18-source.zip --title "卡探 5.18 · Gitee 源地址修正" --latest --notes-file /tmp/notes.md
+          cat > update.json <<'JSON'
+          {
+            "versionCode": 71,
+            "versionName": "5.18",
+            "url": "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.18.apk",
+            "urls": [
+              "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.18.apk",
+              "https://github.com/xiaoyu4124/katan-release/releases/download/v5.18/KaTan_5.18.apk"
+            ],
+            "force": false,
+            "notes": "卡探 5.18\n\n· 更新源多源自动切换：Gitee → jsDelivr → GitHub\n· APK 走 jsDelivr 直连，不再等 github.com\n· Gitee 地址修正为 yu1481726037"
+          }
+          JSON
+          python3 -m json.tool update.json > /dev/null
+          git add update.json
+          git commit -m "feed: v71 / 5.18"
+          git push
