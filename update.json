@@ -1,14 +1,14 @@
 {
-  "versionCode": 77,
-  "versionName": "5.24",
-  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.24.apk",
+  "versionCode": 78,
+  "versionName": "5.25",
+  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.25.apk",
   "urls": [
-    "https://aka.doubaocdn.com/s/X2J8ZVDi9b",
-    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.24.apk",
-    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.24/KaTan_5.24.apk",
-    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.24.apk",
-    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.24.apk"
+    "https://aka.doubaocdn.com/s/taAwh89zol",
+    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.25.apk",
+    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.25/KaTan_5.25.apk",
+    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.25.apk",
+    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.25.apk"
   ],
   "force": false,
-  "notes": "卡探 5.24\n\n· 多选「复制」「移动」一点直达对侧窗口\n· 对侧不可写时退回剪贴板并提示\n· 删除/解压失败会显示数量与原因"
+  "notes": "卡探 5.25\n\n· 日志落盘并支持导出（512KB 轮转）\n· FTP 支持 MLSD/MLST\n· 清理死代码"
 }
