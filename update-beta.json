@@ -1,13 +1,13 @@
 {
   "channel": "beta",
-  "versionCode": 137,
-  "versionName": "5.84-beta",
-  "url": "https://aka.doubaocdn.com/s/eGuG6wRcSz",
+  "versionCode": 138,
+  "versionName": "5.85-beta",
+  "url": "https://aka.doubaocdn.com/s/piVzIgyntj",
   "urls": [
-    "https://aka.doubaocdn.com/s/eGuG6wRcSz"
+    "https://aka.doubaocdn.com/s/piVzIgyntj"
   ],
-  "sha256": "1f79eea7ce450c577eb58c2886474e14c49e3e37675b23d7cce1897342eef287",
+  "sha256": "4b4fbc9f1c2ae940bbf3b54fedc3468ad0baddd0d7de0abc0ac1a5cb8e9ee3e2",
   "size": 197396,
   "force": false,
-  "notes": "卡探 5.84（测试版 · 独立包 com.cardprobe.beta）\n\n· 修「写入成功后不自动跳转到隐藏区」：原来只等 12 秒卡挂回来，等不到就只弹结果不跳；现在最多等 30 秒挂载，挂回来后再等最长 20 秒，等到系统真能列出隐藏区才跳，跳之前还会重试 4 次。\n· 结果弹窗里会写清楚：卡已挂回 / 隐藏区能否列出，列不出会告诉你等几秒点抽屉里的「隐藏区」。\n· 保留 5.83 的生成提速：目录簇整簇一次写、FAT 扇区只读一次最后统一回写、找空簇逐扇区走缓存、目录簇一次读一次写、createDir 不再双重清零。\n· 新增日志：OTG REMOUNT …back=? wait=?ms、OTG SYSVISIBLE=?（跳转到底卡在哪一步，这两行直接看得出来）。\n· 版本号 137，正式版仍是 5.82 未动。\n"
+  "notes": "卡探 5.85（测试版 · 独立包 com.cardprobe.beta）\n\n· 新增：卡被卸载/拔掉时，正停在隐藏区（七层链里任意一层）的那一栏会自动退出并重读一次。\n· 两种情况分开处理：卷被卸载（UNMOUNTED / EJECT / REMOVED / BAD_REMOVAL）→ 直接回存储列表；目录还在但已经不存在→往上退到第一个还活着的目录（一般就是卡根）。\n· 还活着的那一栏也会原地重读一次，不会让你看着旧列表猜卡在不在。\n· 新增 USB 拔线广播监听（ACTION_USB_DEVICE_DETACHED）：直接拔 OTG 读卡器时，/storage 那条目录晚一两秒才消失，所以 0.9 秒、2.5 秒各查一次再退。\n· 新增日志 PANE LEAVE / OTG USB DETACHED，退没退、退到哪都能对上。\n· 保留 5.83 生成提速 与 5.84 写成功后自动跳转修复。\n· 版本号 138，正式版仍是 5.82 未动。\n"
 }
