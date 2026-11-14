@@ -1,0 +1,63 @@
+name: release-527
+on:
+  push:
+    paths:
+      - '.github/workflows/rel-527.yml'
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download and verify APK
+        run: |
+          set -euo pipefail
+          curl -fL --retry 3 -o /tmp/KaTan_5.27.apk "https://aka.doubaocdn.com/s/d9icgV9Qf7"
+          echo "de304067f288e9aa039882637a834240dd77b37c973ae2a946487cde5e4ba1d2  /tmp/KaTan_5.27.apk" | sha256sum -c -
+          mkdir -p apk
+          cp /tmp/KaTan_5.27.apk apk/KaTan_5.27.apk
+      - name: Write release notes
+        run: |
+          cat > /tmp/notes.md <<'MD'
+          卡探 5.27（第二批缺陷修复）
+
+          · FTP 上传改为先写 .part 临时文件，收完并落盘后再替换，断连不再毁掉旧文件（D4）
+          · FTP 共享目录路径判据补上分隔符边界，同前缀兄弟目录不再被判为根内（D6）
+          · FTP 增加 6 位口令认证，默认不再匿名读写；APPE 明确返回 502（D5）
+          · 取消传输改为按任务维度，取消一次后播放缓存复制不再永久失败（D3）
+          · 删除/复制遇到符号链接时只处理链接本身，不再递归进目标目录（D7）
+          MD
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v5.27 apk/KaTan_5.27.apk --title "卡探 5.27" --notes-file /tmp/notes.md --latest
+      - name: Update update.json
+        run: |
+          cat > update.json <<'JSON'
+          {
+            "versionCode": 80,
+            "versionName": "5.27",
+            "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.27.apk",
+            "urls": [
+              "https://aka.doubaocdn.com/s/d9icgV9Qf7",
+              "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.27.apk",
+              "https://github.com/xiaoyu4124/katan-release/releases/download/v5.27/KaTan_5.27.apk",
+              "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.27.apk",
+              "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.27.apk"
+            ],
+            "force": false,
+            "notes": "卡探 5.27\n\n· FTP 上传改 .part + 落盘后替换，断连不毁旧文件（D4）\n· FTP 路径判据补分隔符边界（D6）\n· FTP 增加 6 位口令，APPE 返回 502（D5）\n· 取消改为按任务维度，播放缓存复制不再永久失败（D3）\n· 删除/复制遇符号链接只处理链接本身（D7）"
+          }
+          JSON
+      - name: Commit artifacts
+        run: |
+          set -euo pipefail
+          git config user.name "katan-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add apk/KaTan_5.27.apk update.json
+          git commit -m "release: 5.27 (v80)" || echo "nothing to commit"
+          git push
