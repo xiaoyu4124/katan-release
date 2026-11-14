@@ -1,13 +1,13 @@
 {
   "channel": "beta",
-  "versionCode": 139,
-  "versionName": "5.86-beta",
-  "url": "https://aka.doubaocdn.com/s/Ly1Th4i813",
+  "versionCode": 140,
+  "versionName": "5.87-beta",
+  "url": "https://aka.doubaocdn.com/s/ECQMpBQ3TA",
   "urls": [
-    "https://aka.doubaocdn.com/s/Ly1Th4i813"
+    "https://aka.doubaocdn.com/s/ECQMpBQ3TA"
   ],
-  "sha256": "e9fe36bc5020dbd301f5ea1e26effd9e24aa7703ac019313379168a5d894ae1c",
+  "sha256": "2f83e388277a0babd8fe37da427a21126f2bd7b07322b540383d47444e6c517e",
   "size": 197396,
   "force": false,
-  "notes": "卡探 5.86（测试版 · 独立包 com.cardprobe.beta）\n\n· 卸载/拔卡退出的落点改成「这一卷的根」：直接回 /storage/<卷 UUID> 那一层，不再退到抽象的文件列表。\n· 卷 UUID 不写死：从当前路径现场取（/storage/<uuid> 或 /storage/emulated/<n>），换一张卡或换个读卡器照样对。\n· 只有卷根真的没了（卡被弹出/拔掉）才逐级往上，最后兜底回存储列表。\n· 保留 5.85：还活着的那一栏原地重读一次；保留 5.83 生成提速、5.84 写成功后自动跳转。\n· 版本号 139，正式版仍是 5.82 未动。\n"
+  "notes": "卡探 5.87（测试版 · 独立包 com.cardprobe.beta）\n\n· 修：卸载后退到 /storage 那层（系统挂载点，应用无权列表，两栏空）的问题。\n· /storage、/、/mnt、/mnt/media_rw 这类系统根一律不当落脚点（isRestrictedDir 句型）。\n· 落点顺序：这一卷的根（/storage/<卷 UUID>，uuid 从当前路径现场取，不写死）→ 逐级往上找可读目录 → 内部存储根 → 存储列表。\n· 新增自愈：每次进前台把停在不可读系统根上的那栏拉回来，上次退错地方不会再卡住。\n· 5.83 生成提速、5.84 写成功自动跳转、5.85 卸载自动退出并刷新、5.86 退到卷根，全部保留。\n· 版本号 140，正式版仍是 5.82 未动。\n"
 }
