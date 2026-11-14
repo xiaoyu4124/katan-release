@@ -1,14 +1,14 @@
 {
-  "versionCode": 79,
-  "versionName": "5.26",
-  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.26.apk",
+  "versionCode": 80,
+  "versionName": "5.27",
+  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.27.apk",
   "urls": [
-    "https://aka.doubaocdn.com/s/3z083p6WvL",
-    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.26.apk",
-    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.26/KaTan_5.26.apk",
-    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.26.apk",
-    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.26.apk"
+    "https://aka.doubaocdn.com/s/d9icgV9Qf7",
+    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.27.apk",
+    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.27/KaTan_5.27.apk",
+    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.27.apk",
+    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.27.apk"
   ],
   "force": false,
-  "notes": "卡探 5.26\n\n· 修复超过 12 层目录移动时静默截断并删除源目录导致文件丢失（D1）\n· 修复覆盖式复制先删旧文件导致失败/取消后数据丢失（D2）\n· 复制改为 .part 临时文件 + 落盘后改名替换\n· 目录复制改为迭代实现，移除深度上限"
+  "notes": "卡探 5.27\n\n· FTP 上传改 .part + 落盘后替换，断连不毁旧文件（D4）\n· FTP 路径判据补分隔符边界（D6）\n· FTP 增加 6 位口令，APPE 返回 502（D5）\n· 取消改为按任务维度，播放缓存复制不再永久失败（D3）\n· 删除/复制遇符号链接只处理链接本身（D7）"
 }
