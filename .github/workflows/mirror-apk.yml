@@ -1,0 +1,97 @@
+name: mirror-apk
+
+on:
+  push:
+    paths:
+      - '.github/workflows/mirror-apk.yml'
+  workflow_dispatch:
+    inputs:
+      apk_url:
+        description: 'APK 下载地址（留空用默认 5.49）'
+        required: false
+        default: ''
+      apk_name:
+        description: '保存文件名（留空用默认）'
+        required: false
+        default: ''
+      apk_sha256:
+        description: '期望 SHA-256（留空用默认）'
+        required: false
+        default: ''
+
+env:
+  DEF_URL: 'https://aka.doubaocdn.com/s/w5w5iTfB3S'
+  DEF_NAME: 'KaTan_5.49.apk'
+  DEF_SHA: '720f20eb300b0ae0c67045cdf00484128bed31dfcbf1b109c9123636331eac8d'
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download + verify
+        id: dl
+        run: |
+          URL="${{ inputs.apk_url }}"
+          NAME="${{ inputs.apk_name }}"
+          SHA="${{ inputs.apk_sha256 }}"
+          [ -z "$URL" ]  && URL="$DEF_URL"
+          [ -z "$NAME" ] && NAME="$DEF_NAME"
+          [ -z "$SHA" ]  && SHA="$DEF_SHA"
+          echo "url=$URL"
+          echo "name=$NAME"
+          mkdir -p apk
+          curl -fL --retry 3 --retry-delay 2 -o "apk/$NAME" "$URL"
+          echo "$SHA  apk/$NAME" | sha256sum -c -
+          echo "ACTUAL=$(sha256sum "apk/$NAME" | cut -d' ' -f1)" >> $GITHUB_OUTPUT
+          echo "NAME=$NAME" >> $GITHUB_OUTPUT
+
+      - name: Commit APK into repo
+        id: commit
+        run: |
+          NAME="${{ steps.dl.outputs.NAME }}"
+          git config user.name 'katan-bot'
+          git config user.email 'bot@users.noreply.github.com'
+          git add "apk/$NAME"
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo 'APK 已存在且内容相同，跳过提交'
+            exit 0
+          fi
+          git commit -m "mirror: $NAME"
+          git push
+          echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Point update.json at repo mirrors
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          NAME: ${{ steps.dl.outputs.NAME }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          name = os.environ['NAME']; repo = os.environ['REPO']
+          raw = f"https://raw.githubusercontent.com/{repo}/main/apk/{name}"
+          jsd = f"https://cdn.jsdelivr.net/gh/{repo}@main/apk/{name}"
+          with open('update.json', encoding='utf-8') as f:
+              data = json.load(f)
+          urls = data.get('urls') or ([data['url']] if data.get('url') else [])
+          for u in (raw, jsd):
+              if u not in urls:
+                  urls.append(u)
+          data['urls'] = urls
+          with open('update.json', 'w', encoding='utf-8') as f:
+              json.dump(data, f, ensure_ascii=False, indent=2)
+              f.write('\n')
+          print('urls =', urls)
+          PY
+          git add update.json
+          git commit -m "mirror: add repo mirrors for $NAME"
+          git push
