@@ -1,13 +1,13 @@
 {
   "channel": "beta",
-  "versionCode": 138,
-  "versionName": "5.85-beta",
-  "url": "https://aka.doubaocdn.com/s/piVzIgyntj",
+  "versionCode": 139,
+  "versionName": "5.86-beta",
+  "url": "https://aka.doubaocdn.com/s/Ly1Th4i813",
   "urls": [
-    "https://aka.doubaocdn.com/s/piVzIgyntj"
+    "https://aka.doubaocdn.com/s/Ly1Th4i813"
   ],
-  "sha256": "4b4fbc9f1c2ae940bbf3b54fedc3468ad0baddd0d7de0abc0ac1a5cb8e9ee3e2",
+  "sha256": "e9fe36bc5020dbd301f5ea1e26effd9e24aa7703ac019313379168a5d894ae1c",
   "size": 197396,
   "force": false,
-  "notes": "卡探 5.85（测试版 · 独立包 com.cardprobe.beta）\n\n· 新增：卡被卸载/拔掉时，正停在隐藏区（七层链里任意一层）的那一栏会自动退出并重读一次。\n· 两种情况分开处理：卷被卸载（UNMOUNTED / EJECT / REMOVED / BAD_REMOVAL）→ 直接回存储列表；目录还在但已经不存在→往上退到第一个还活着的目录（一般就是卡根）。\n· 还活着的那一栏也会原地重读一次，不会让你看着旧列表猜卡在不在。\n· 新增 USB 拔线广播监听（ACTION_USB_DEVICE_DETACHED）：直接拔 OTG 读卡器时，/storage 那条目录晚一两秒才消失，所以 0.9 秒、2.5 秒各查一次再退。\n· 新增日志 PANE LEAVE / OTG USB DETACHED，退没退、退到哪都能对上。\n· 保留 5.83 生成提速 与 5.84 写成功后自动跳转修复。\n· 版本号 138，正式版仍是 5.82 未动。\n"
+  "notes": "卡探 5.86（测试版 · 独立包 com.cardprobe.beta）\n\n· 卸载/拔卡退出的落点改成「这一卷的根」：直接回 /storage/<卷 UUID> 那一层，不再退到抽象的文件列表。\n· 卷 UUID 不写死：从当前路径现场取（/storage/<uuid> 或 /storage/emulated/<n>），换一张卡或换个读卡器照样对。\n· 只有卷根真的没了（卡被弹出/拔掉）才逐级往上，最后兜底回存储列表。\n· 保留 5.85：还活着的那一栏原地重读一次；保留 5.83 生成提速、5.84 写成功后自动跳转。\n· 版本号 139，正式版仍是 5.82 未动。\n"
 }
