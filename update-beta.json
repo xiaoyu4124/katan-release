@@ -1,16 +1,13 @@
 {
   "channel": "beta",
-  "versionCode": 135,
-  "versionName": "5.82-beta",
-  "url": "https://aka.doubaocdn.com/s/qGpVIdLW5K",
+  "versionCode": 136,
+  "versionName": "5.83-beta",
+  "url": "https://aka.doubaocdn.com/s/S6jgw7KPeb",
   "urls": [
-    "https://aka.doubaocdn.com/s/qGpVIdLW5K",
-    "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_beta_5.82.apk",
-    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_beta_5.82.apk",
-    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_beta_5.82.apk"
+    "https://aka.doubaocdn.com/s/S6jgw7KPeb"
   ],
-  "sha256": "41ecc78809627e0e48887fde81ddeb2c15b81e932d990291bbed3b3f19f329bd",
-  "size": 193300,
+  "sha256": "fe8d7a52aff5c6bded18d7beca19cd20abe9e6e7502ac0a6ec6220e6c0d6b35d",
+  "size": 197396,
   "force": false,
-  "notes": "卡探 5.82（测试版 · 独立包 com.cardprobe.beta）\n\n· 正式版和测试版拆成两个安装包：本包包名 com.cardprobe.beta，桌面显示「卡探·测试版」，可以和正式版同时安装\n· 本包通道在编译期写死为测试版，只读 update-beta.json，不再进菜单切通道（⋯ 里只显示「本包通道：测试版（固定）」）\n· 两个卡探不能同时对同一张卡发 SCSI 命令：新增 /sdcard/.katan.otg.lock 跨包互斥锁，抢不到会提示「另一个卡探正在操作这张卡」，60 秒无心跳自动失效\n· 版本号 135，与正式版 5.82 同号但不同包；正式版等真机验证通过后再写进 update.json\n· 下载源：CDN 主源 + 仓库 apk/ 的 raw / jsDelivr / ghfast 三个备用源（三条已实测 200，返回 193300 字节）\n"
+  "notes": "卡探 5.83（测试版 · 独立包 com.cardprobe.beta）\n\n· 生成隐藏目录提速：把「每个扇区发一条 USB 命令」改成「内存里攒改动、最后一次性落盘」。目录簇整簇一次写（32 KB 簇原来 64 条写命令 → 1～2 条）；FAT 扇区只读一次，改动攒到最后统一写回（原来每改一个簇项要读 1 写 1 ×2 份 FAT = 4 条命令）；找空闲簇改成逐 FAT 扇区走缓存扫描（原来一次读 128 扇区）；createDir 不再对同一簇清零后又整体重写。\n· 目录簇缓存：同一簇在整条链构建期间只从卡上读一次，每层「读父目录→找空槽→写回」由 3 读 1 写降到 1 读 1 写。\n· 回读校验前会丢弃缓存，校验仍然是从卡上真读一遍，不是读内存。\n· 新增日志：OTG CHAIN rebuild / ensurePath 两段耗时 + 累计命令数（ops=），下次可以按数据继续砍。\n· 版本号 136，正式版仍是 5.82 未动；本包通道固定测试版，只读 update-beta.json。\n· 下载源：先给 CDN 主源；镜像进仓库后再补 raw / jsDelivr / ghfast 三条备用源。\n"
 }
