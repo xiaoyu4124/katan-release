@@ -1,14 +1,14 @@
 {
-  "versionCode": 76,
-  "versionName": "5.23",
-  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.23.apk",
+  "versionCode": 77,
+  "versionName": "5.24",
+  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.24.apk",
   "urls": [
-    "https://aka.doubaocdn.com/s/w6DKyonsAK",
-    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.23.apk",
-    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.23/KaTan_5.23.apk",
-    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.23.apk",
-    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.23.apk"
+    "https://aka.doubaocdn.com/s/X2J8ZVDi9b",
+    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.24.apk",
+    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.24/KaTan_5.24.apk",
+    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.24.apk",
+    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.24.apk"
   ],
   "force": false,
-  "notes": "卡探 5.23\n\n· 大文件复制可取消：中断后不再留半截文件\n· 扫描可手动停止：⋮ 菜单在扫描中出现「停止扫描（进行中）」\n· OTG 向导弹窗关闭后不再后台轮询 USB"
+  "notes": "卡探 5.24\n\n· 多选「复制」「移动」一点直达对侧窗口\n· 对侧不可写时退回剪贴板并提示\n· 删除/解压失败会显示数量与原因"
 }
