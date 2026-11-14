@@ -1,0 +1,52 @@
+name: rel-524
+
+on:
+  push:
+    paths:
+      - ".github/workflows/rel-524.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch assets
+        run: |
+          curl -fsSL -o KaTan_5.24.apk "https://aka.doubaocdn.com/s/X2J8ZVDi9b"
+          curl -fsSL -o KaTan-5.24-source.zip "https://aka.doubaocdn.com/s/1apl2fJuOc"
+          echo "e72644c5819e2985c010fa6587c7b71a3beacfaf24613550a91e110913c4abb9  KaTan_5.24.apk" | sha256sum -c
+          echo "47817d5b8616f05c04696b88cf5f669d2214b8f2163515a1cd7da63a2e73db84  KaTan-5.24-source.zip" | sha256sum -c
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v5.24 KaTan_5.24.apk KaTan-5.24-source.zip --title "卡探 5.24 · 多选直达与失败可见" --latest --notes-file <(printf '卡探 5.24\n\n· 多选工具栏「复制」「移动」改为一点直达对侧窗口（MT 卡片确认，主操作带蓝点）\n· 对侧不是可写目录时自动退回剪贴板并提示，粘贴路径保持不变\n· 删除部分失败时报告失败数量与可能原因\n· 解压完成提示补上失败数\n\n校验值：\ne72644c5819e2985c010fa6587c7b71a3beacfaf24613550a91e110913c4abb9  KaTan_5.24.apk\n47817d5b8616f05c04696b88cf5f669d2214b8f2163515a1cd7da63a2e73db84  卡探-5.24-源码.zip\n')
+      - name: Commit apk and feed
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          mkdir -p apk
+          cp KaTan_5.24.apk apk/KaTan_5.24.apk
+          cat > update.json <<'JSON'
+          {
+            "versionCode": 77,
+            "versionName": "5.24",
+            "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.24.apk",
+            "urls": [
+              "https://aka.doubaocdn.com/s/X2J8ZVDi9b",
+              "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.24.apk",
+              "https://github.com/xiaoyu4124/katan-release/releases/download/v5.24/KaTan_5.24.apk",
+              "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.24.apk",
+              "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.24.apk"
+            ],
+            "force": false,
+            "notes": "卡探 5.24\n\n· 多选「复制」「移动」一点直达对侧窗口\n· 对侧不可写时退回剪贴板并提示\n· 删除/解压失败会显示数量与原因"
+          }
+          JSON
+          python3 -m json.tool update.json > /dev/null
+          git add apk/KaTan_5.24.apk update.json
+          git commit -m "release: 5.24 apk + feed v77"
+          git push
