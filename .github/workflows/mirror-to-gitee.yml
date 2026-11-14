@@ -1,9 +1,11 @@
 name: mirror-to-gitee
 
 # GitHub 是唯一的源，推完自动同步到 Gitee。
-# 前提：在 GitHub 仓库 Settings -> Secrets -> Actions 里加一个 GITEE_TOKEN（Gitee 私人令牌，勾 projects）。
+# 前提：在 GitHub 仓库 Settings -> Secrets -> Actions 里加一个 GITEE_TOKEN（Gitee 私人令牌）。
 # 没加 token 时这个工作流会直接跳过，不会报红。
 # Gitee 仓默认分支是 master，App 里拼的就是 raw/master/update.json，对得上。
+# 5.85：GitHub 跑到 gitee.com 偶尔会在 20 秒内连不住（curl 退出码 28），原来那样一超时就整条红。
+#       现在令牌自检只当参考（超时就警告继续），推送本身重试 3 次，成败以推送为准。
 
 on:
   push:
@@ -41,11 +43,15 @@ jobs:
         env:
           TOKEN: ${{ secrets.GITEE_TOKEN }}
         run: |
-          code=$(curl -s -o /dev/null -w '%{http_code}' -m 20 "https://gitee.com/api/v5/user?access_token=$TOKEN")
-          echo "Gitee token 自检 HTTP=$code"
-          if [ "$code" != "200" ]; then
-            echo '::error::GITEE_TOKEN 无效或 topical 权限不足（访问 api/v5/user 未返回 200）'
-            exit 1
+          ok=0
+          for i in 1 2 3; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -m 40 "https://gitee.com/api/v5/user?access_token=$TOKEN" || echo 000)
+            echo "第 $i 次令牌自检 HTTP=$code"
+            if [ "$code" = "200" ]; then ok=1; break; fi
+            sleep 5
+          done
+          if [ "$ok" != "1" ]; then
+            echo '::warning::Gitee 令牌自检没通（可能是 GitHub 访问 gitee.com 超时，也可能是令牌失效），继续尝试推送，结果以 Push 步骤为准'
           fi
 
       - name: Push to Gitee
@@ -53,8 +59,18 @@ jobs:
         env:
           TOKEN: ${{ secrets.GITEE_TOKEN }}
         run: |
+          git config --global http.lowSpeedLimit 0
+          git config --global http.lowSpeedTime 999999
           git config user.name 'katan-bot'
           git config user.email 'bot@users.noreply.github.com'
           git remote add gitee "https://yu1481726037:${TOKEN}@gitee.com/yu1481726037/katan-release.git"
-          GIT_TERMINAL_PROMPT=0 GIT_ASKPASS=/bin/true git push --force gitee HEAD:master
-          echo '已同步到 gitee.com/yu1481726037/katan-release (master)'
+          for i in 1 2 3; do
+            echo "推送尝试 $i/3"
+            if GIT_TERMINAL_PROMPT=0 GIT_ASKPASS=/bin/true git push --force gitee HEAD:master; then
+              echo '已同步到 gitee.com/yu1481726037/katan-release (master)'
+              exit 0
+            fi
+            sleep 10
+          done
+          echo '::error::三次推送 Gitee 都失败（网络或令牌），到 gitee.com 检查令牌/仓库权限'
+          exit 1
