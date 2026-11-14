@@ -1,28 +1,22 @@
 name: mirror-apk
 
+# 只做一件事：把某个版本的 APK 从 CDN 拉下来、校验 SHA-256、提交到 apk/ 目录。
+# update.json 不在这里改，避免镜像文件名与 versionCode 错配。
+# 新版本发完后手动跑：
+#   Actions -> mirror-apk -> Run workflow，填 apk_url / apk_name / apk_sha256
+
 on:
-  push:
-    paths:
-      - '.github/workflows/mirror-apk.yml'
   workflow_dispatch:
     inputs:
       apk_url:
-        description: 'APK 下载地址（留空用默认 5.49）'
-        required: false
-        default: ''
+        description: 'APK 下载地址（CDN 直链）'
+        required: true
       apk_name:
-        description: '保存文件名（留空用默认）'
-        required: false
-        default: ''
+        description: '保存文件名，例如 KaTan_5.49.apk'
+        required: true
       apk_sha256:
-        description: '期望 SHA-256（留空用默认）'
-        required: false
-        default: ''
-
-env:
-  DEF_URL: 'https://aka.doubaocdn.com/s/w5w5iTfB3S'
-  DEF_NAME: 'KaTan_5.49.apk'
-  DEF_SHA: '720f20eb300b0ae0c67045cdf00484128bed31dfcbf1b109c9123636331eac8d'
+        description: '期望 SHA-256'
+        required: true
 
 permissions:
   contents: write
@@ -42,56 +36,29 @@ jobs:
           URL="${{ inputs.apk_url }}"
           NAME="${{ inputs.apk_name }}"
           SHA="${{ inputs.apk_sha256 }}"
-          [ -z "$URL" ]  && URL="$DEF_URL"
-          [ -z "$NAME" ] && NAME="$DEF_NAME"
-          [ -z "$SHA" ]  && SHA="$DEF_SHA"
+          if [ -z "$URL" ] || [ -z "$NAME" ] || [ -z "$SHA" ]; then
+            echo '缺少 apk_url / apk_name / apk_sha256' && exit 1
+          fi
           echo "url=$URL"
           echo "name=$NAME"
           mkdir -p apk
           curl -fL --retry 3 --retry-delay 2 -o "apk/$NAME" "$URL"
           echo "$SHA  apk/$NAME" | sha256sum -c -
-          echo "ACTUAL=$(sha256sum "apk/$NAME" | cut -d' ' -f1)" >> $GITHUB_OUTPUT
           echo "NAME=$NAME" >> $GITHUB_OUTPUT
+          echo "SHA=$SHA" >> $GITHUB_OUTPUT
+          echo "SIZE=$(stat -c %s "apk/$NAME")" >> $GITHUB_OUTPUT
 
-      - name: Commit APK into repo
-        id: commit
+      - name: Commit into apk/
         run: |
           NAME="${{ steps.dl.outputs.NAME }}"
           git config user.name 'katan-bot'
           git config user.email 'bot@users.noreply.github.com'
           git add "apk/$NAME"
           if git diff --cached --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-            echo 'APK 已存在且内容相同，跳过提交'
+            echo "apk/$NAME 内容未变，无需提交"
             exit 0
           fi
+          git commit -m "mirror: $NAME (sha256 ${SHA_VALUE:0:12})" 
+            -m "size=$(stat -c %s apk/$NAME)" || true
           git commit -m "mirror: $NAME"
-          git push
-          echo "changed=true" >> $GITHUB_OUTPUT
-
-      - name: Point update.json at repo mirrors
-        if: steps.commit.outputs.changed == 'true'
-        env:
-          NAME: ${{ steps.dl.outputs.NAME }}
-          REPO: ${{ github.repository }}
-        run: |
-          python3 - <<'PY'
-          import json, os
-          name = os.environ['NAME']; repo = os.environ['REPO']
-          raw = f"https://raw.githubusercontent.com/{repo}/main/apk/{name}"
-          jsd = f"https://cdn.jsdelivr.net/gh/{repo}@main/apk/{name}"
-          with open('update.json', encoding='utf-8') as f:
-              data = json.load(f)
-          urls = data.get('urls') or ([data['url']] if data.get('url') else [])
-          for u in (raw, jsd):
-              if u not in urls:
-                  urls.append(u)
-          data['urls'] = urls
-          with open('update.json', 'w', encoding='utf-8') as f:
-              json.dump(data, f, ensure_ascii=False, indent=2)
-              f.write('\n')
-          print('urls =', urls)
-          PY
-          git add update.json
-          git commit -m "mirror: add repo mirrors for $NAME"
           git push
