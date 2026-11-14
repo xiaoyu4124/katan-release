@@ -4,12 +4,13 @@
   "url": "https://aka.doubaocdn.com/s/YhB2YRfimY",
   "urls": [
     "https://aka.doubaocdn.com/s/YhB2YRfimY",
+    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.81.apk",
     "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.81.apk",
     "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.81.apk"
   ],
   "sha256": "a41a1417f7d5490ce955b2bdce001b3e5ce3a479a0c123424033a965097c50e3",
   "size": 193300,
   "force": false,
-  "notes": "卡探 5.81\n\n· OTG 提速：每条命令不再先做一次 BOT 复位。老读卡器（13468:1048）上这一步每次必然失败并耗满 8 秒，拆一条卡要白等 150 秒左右；现在只有失败才复位\n· 拆隐藏区不再读容量，再省一次必然失败的 8 秒命令\n· 拆完自动刷双栏：还存在的目录原地重读，挂在隐藏区里的那一栏退回卡根\n· 探测仍先走系统挂载的文件接口，只有真正写扇区才接管读卡器\n· 更新通道分正式版 / 测试版：⋯ 菜单可切换，正式版只推验证过的包\n· 保留预热读与重建连接作兜底\n",
+  "notes": "卡探 5.81\n\n· OTG 提速：每条命令不再先做一次 BOT 复位。老读卡器（13468:1048）上这一步每次必然失败并耗满 8 秒，拆一条卡要白等 150 秒左右；现在只有失败才复位\n· 拆隐藏区不再读容量，再省一次必然失败的 8 秒命令\n· 拆完自动刷双栏：还存在的目录原地重读，挂在隐藏区里的那一栏退回卡根\n· 探测仍先走系统挂载的文件接口，只有真正写扇区才接管读卡器\n· 更新通道分正式版 / 测试版：⋯ 菜单可切换，正式版只推验证过的包\n· 保留预热读与重建连接作兜底\n· 下载源：CDN 主力，Gitee / GitHub raw / jsDelivr 三条备源\n",
   "channel": "stable"
 }
