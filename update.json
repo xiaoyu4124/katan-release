@@ -1,14 +1,15 @@
 {
-  "versionCode": 102,
-  "versionName": "5.49",
-  "url": "https://aka.doubaocdn.com/s/w5w5iTfB3S",
+  "versionCode": 134,
+  "versionName": "5.81",
+  "url": "https://aka.doubaocdn.com/s/YhB2YRfimY",
   "urls": [
-    "https://aka.doubaocdn.com/s/w5w5iTfB3S",
-    "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.49.apk",
-    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.49.apk"
+    "https://aka.doubaocdn.com/s/YhB2YRfimY",
+    "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.81.apk",
+    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.81.apk"
   ],
-  "sha256": "720f20eb300b0ae0c67045cdf00484128bed31dfcbf1b109c9123636331eac8d",
-  "size": 185108,
+  "sha256": "a41a1417f7d5490ce955b2bdce001b3e5ce3a479a0c123424033a965097c50e3",
+  "size": 193300,
   "force": false,
-  "notes": "卡探 5.49\n\n· 修复：点进文件夹后，原来那一行不再残留浅色高亮（按下去时的按压反馈改成每行自己画，不再用全局选择条）\n· 隐藏区（外接卡）：抽屉入口直进卡上隐藏链，界面显示长名 MICROSOFT-7701091-6666888-16826688，不出现 MICROS~1 和方块；卡上字节不改\n· 隐藏区可双向复制（写入/回读/导出/导入已实机逐条验证）\n· 目录列表下拉刷新：拖到顶部下拉、松手重读\n· 发版工程：新增 mirror-apk 工作流，APK 会同步镜像一份到仓库，下载多一个备用源\n"
+  "notes": "卡探 5.81\n\n· OTG 提速：每条命令不再先做一次 BOT 复位。老读卡器（13468:1048）上这一步每次必然失败并耗满 8 秒，拆一条卡要白等 150 秒左右；现在只有失败才复位\n· 拆隐藏区不再读容量，再省一次必然失败的 8 秒命令\n· 拆完自动刷双栏：还存在的目录原地重读，挂在隐藏区里的那一栏退回卡根\n· 探测仍先走系统挂载的文件接口，只有真正写扇区才接管读卡器\n· 更新通道分正式版 / 测试版：⋯ 菜单可切换，正式版只推验证过的包\n· 保留预热读与重建连接作兜底\n",
+  "channel": "stable"
 }
