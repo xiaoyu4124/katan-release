@@ -3,7 +3,9 @@
   "versionName": "5.48",
   "url": "https://aka.doubaocdn.com/s/zRvcjqKHyy",
   "urls": [
-    "https://aka.doubaocdn.com/s/zRvcjqKHyy"
+    "https://aka.doubaocdn.com/s/zRvcjqKHyy",
+    "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.49.apk",
+    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.49.apk"
   ],
   "sha256": "8856852752616bf0d69ea6063ffefee8ac3885ac0977ee97ed78f8d3fff893cc",
   "size": 185108,
