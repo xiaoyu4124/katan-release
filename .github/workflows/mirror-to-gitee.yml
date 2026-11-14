@@ -1,0 +1,42 @@
+name: mirror-to-gitee
+
+# GitHub 是唯一的源，推完自动同步到 Gitee。
+# 前提：在 GitHub 仓库 Settings -> Secrets -> Actions 里加一个 GITEE_TOKEN。
+# 没加 token 时这个工作流会直接跳过，不会报红。
+# Gitee 仓默认分支是 master，App 里拼的就是 raw/master/update.json，对得上。
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check GITEE_TOKEN
+        id: chk
+        run: |
+          if [ -z "${{ secrets.GITEE_TOKEN }}" ]; then
+            echo '没有 GITEE_TOKEN，本次跳过同步'
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.chk.outputs.skip == 'false'
+        with:
+          fetch-depth: 0
+
+      - name: Push to Gitee
+        if: steps.chk.outputs.skip == 'false'
+        run: |
+          git config user.name 'katan-bot'
+          git config user.email 'bot@users.noreply.github.com'
+          git remote add gitee "https://oauth2:${{ secrets.GITEE_TOKEN }}@gitee.com/yu1481726037/katan-release.git"
+          git push --force gitee HEAD:master
+          echo '已同步到 gitee.com/yu1481726037/katan-release (master)'
