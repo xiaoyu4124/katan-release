@@ -1,0 +1,52 @@
+name: rel-525
+
+on:
+  push:
+    paths:
+      - ".github/workflows/rel-525.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch assets
+        run: |
+          curl -fsSL -o KaTan_5.25.apk "https://aka.doubaocdn.com/s/taAwh89zol"
+          curl -fsSL -o KaTan-5.25-source.zip "https://aka.doubaocdn.com/s/opZR7OV3Qb"
+          echo "2a6978a47c4e8fc8db8f9ff187c50f03445ea7d3acc3a32e0d1886b0c96be4da  KaTan_5.25.apk" | sha256sum -c
+          echo "a068d7f21f8da69487cbe3c71bd9758a7949ad5897bdfc06a3ac8cdec17a09b7  KaTan-5.25-source.zip" | sha256sum -c
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v5.25 KaTan_5.25.apk KaTan-5.25-source.zip --title "卡探 5.25 · 日志落盘 + FTP MLSD" --latest --notes-file <(printf '卡探 5.25\n\n· 日志落盘：katan.log（512KB 自动轮转为 .1），重启/被回收后仍可回溯\n· 日志面板重做：MT 底部卡片 + 滚动查看 + 「导出到 Download」+「清空」\n· FTP 新增 MLSD / MLST，FEAT 同步声明，兼容依赖 MLSD 的客户端\n· 清理死代码：mkBtn、MODE_RESULTS、旧 transfer()\n\n校验值：\n2a6978a47c4e8fc8db8f9ff187c50f03445ea7d3acc3a32e0d1886b0c96be4da  KaTan_5.25.apk\na068d7f21f8da69487cbe3c71bd9758a7949ad5897bdfc06a3ac8cdec17a09b7  卡探-5.25-源码.zip\n')
+      - name: Commit apk and feed
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          mkdir -p apk
+          cp KaTan_5.25.apk apk/KaTan_5.25.apk
+          cat > update.json <<'JSON'
+          {
+            "versionCode": 78,
+            "versionName": "5.25",
+            "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.25.apk",
+            "urls": [
+              "https://aka.doubaocdn.com/s/taAwh89zol",
+              "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.25.apk",
+              "https://github.com/xiaoyu4124/katan-release/releases/download/v5.25/KaTan_5.25.apk",
+              "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.25.apk",
+              "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.25.apk"
+            ],
+            "force": false,
+            "notes": "卡探 5.25\n\n· 日志落盘并支持导出（512KB 轮转）\n· FTP 支持 MLSD/MLST\n· 清理死代码"
+          }
+          JSON
+          python3 -m json.tool update.json > /dev/null
+          git add apk/KaTan_5.25.apk update.json
+          git commit -m "release: 5.25 apk + feed v78"
+          git push
