@@ -1,13 +1,13 @@
 {
   "channel": "beta",
-  "versionCode": 133,
-  "versionName": "5.80",
-  "url": "https://aka.doubaocdn.com/s/VkfVbTFLQr",
+  "versionCode": 134,
+  "versionName": "5.81",
+  "url": "https://aka.doubaocdn.com/s/YhB2YRfimY",
   "urls": [
-    "https://aka.doubaocdn.com/s/VkfVbTFLQr"
+    "https://aka.doubaocdn.com/s/YhB2YRfimY"
   ],
-  "sha256": "118117c7bbda5ee2d50463a1dd9844d5d57902dcf54157e496b2052d860917d5",
+  "sha256": "a41a1417f7d5490ce955b2bdce001b3e5ce3a479a0c123424033a965097c50e3",
   "size": 193300,
   "force": false,
-  "notes": "卡探 5.80（测试版，未验证前不进正式版）\n\n· 去掉每条命令数据阶段前的 botReset：老读卡器上这一步每次强收 8 秒，是“每条命令 8.4 秒、整套 150 秒”的直接原因；回到 5.57 的做法，失败才复位\n· 写入/拆除不再读容量，省掉一次必然失败的 8 秒命令\n· 保留预热读与重建连接作为兜底；给 botReset 加了计时日志（OTG BOTRESET xxxms）\n· 新增更新通道：⋯ 菜单可切“正式版 / 测试版”，正式版只推验证过的包，测试版读 update-beta.json\n"
+  "notes": "卡探 5.81（测试版）\n\n· 拆除隐藏区完成后，左右两栏自动刷新：还存在的目录原地重读，挂在隐藏区里的那一栏退回卡根\n· 承接 5.80：去掉每条命令数据阶段前的 botReset（老读卡器每条命令省 8 秒）、拆除不读容量、更新通道可分正式版/测试版\n"
 }
