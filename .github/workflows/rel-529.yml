@@ -1,0 +1,61 @@
+name: release-529
+on:
+  push:
+    paths:
+      - '.github/workflows/rel-529.yml'
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download and verify APK
+        run: |
+          set -euo pipefail
+          curl -fL --retry 3 -o /tmp/KaTan_5.29.apk "https://aka.doubaocdn.com/s/83j7I7XlXv"
+          echo "bb107cb98ee98a984443bf19a2244800f6b5fcb0d69be7ce42dd710d51f91ebc  /tmp/KaTan_5.29.apk" | sha256sum -c -
+          mkdir -p apk
+          cp /tmp/KaTan_5.29.apk apk/KaTan_5.29.apk
+      - name: Write release notes
+        run: |
+          cat > /tmp/notes.md <<'MD'
+          卡探 5.29（功能补齐第一批 · 诊断兜底）
+
+          · 新增全局崩溃捕获：闪退时自动写 crash-时间.log（含堆栈、机型、Android 版本、崩溃前内存日志）
+          · 下次启动弹提示，可一键导出到 Download 反馈
+          · 抽屉「崩溃记录」可查看历史崩溃、导出最新、清空全部
+          MD
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v5.29 apk/KaTan_5.29.apk --title "卡探 5.29" --notes-file /tmp/notes.md --latest
+      - name: Update update.json
+        run: |
+          cat > update.json <<'JSON'
+          {
+            "versionCode": 82,
+            "versionName": "5.29",
+            "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.29.apk",
+            "urls": [
+              "https://aka.doubaocdn.com/s/83j7I7XlXv",
+              "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.29.apk",
+              "https://github.com/xiaoyu4124/katan-release/releases/download/v5.29/KaTan_5.29.apk",
+              "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.29.apk",
+              "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.29.apk"
+            ],
+            "force": false,
+            "notes": "卡探 5.29\n\n· 全局崩溃捕获，闪退自动写 crash-*.log（含堆栈/机型/版本/内存日志）\n· 下次启动提示并可导出，抽屉「崩溃记录」可查看与清空"
+          }
+          JSON
+      - name: Commit artifacts
+        run: |
+          set -euo pipefail
+          git config user.name "katan-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add apk/KaTan_5.29.apk update.json
+          git commit -m "release: 5.29 (v82)" || echo "nothing to commit"
+          git push
