@@ -1,0 +1,68 @@
+name: release-532
+on:
+  push:
+    paths:
+      - '.github/workflows/rel-532.yml'
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download and verify APK
+        run: |
+          set -euo pipefail
+          curl -fL --retry 3 -o /tmp/KaTan_5.32.apk "https://aka.doubaocdn.com/s/FHJ2XuzNtX"
+          echo "5e1e1cfa08b7de313afe1eb52c54facca3c6bf792a76f6a6b500ac23c118e60a  /tmp/KaTan_5.32.apk" | sha256sum -c -
+          mkdir -p apk
+          cp /tmp/KaTan_5.32.apk apk/KaTan_5.32.apk
+      - name: Write release notes
+        run: |
+          cat > /tmp/notes.md <<'MD'
+          卡探 5.32（OTG 分区解析修复）
+
+          修复：「这张卡明明是 FAT32 却提示扇区不是 512」
+
+          · 根因一：解析 MBR 分区表时把起始 LBA 当大端读（分区表是小端）。166 被读成 2785017856，整段偏移全错。已改为小端。
+          · 根因二：只认 0x04/0x06/0x0B/0x0C 四种分区类型，类型字节不规范就直接放弃，退回把 MBR 当引导扇区读，才抦出“扇区不是 512”这句误导提示。现改为逐个分区探测引导扇区，不再依赖类型字节。
+          · 新增 GPT 分区表支持（保护性 MBR 0xEE → 读 GPT 头找首个分区）。
+          · 区分 exFAT：直接提示“这张卡是 exFAT，不是 FAT32”，不再误报扇区。
+          · 4096 字节逻辑扇区的卡给出明确说明，而不是含糊报错。
+          · 读卡器块大小从 READ CAPACITY 读取，不再先入为主假定 512；LBA 按真实块大小换算。
+          · 失败时输出实际 LBA 与引导扇区前 32 字节十六进制，可直接定位。
+          · 探测面板新增“读卡器块大小”一栏。
+          MD
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v5.32 apk/KaTan_5.32.apk --title "卡探 5.32" --notes-file /tmp/notes.md --latest
+      - name: Update update.json
+        run: |
+          cat > update.json <<'JSON'
+          {
+            "versionCode": 85,
+            "versionName": "5.32",
+            "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.32.apk",
+            "urls": [
+              "https://aka.doubaocdn.com/s/FHJ2XuzNtX",
+              "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.32.apk",
+              "https://github.com/xiaoyu4124/katan-release/releases/download/v5.32/KaTan_5.32.apk",
+              "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.32.apk",
+              "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.32.apk"
+            ],
+            "force": false,
+            "notes": "卡探 5.32\n\n· 修复 MBR 起始 LBA 大小端错误（166 被读成 2785017856）\n· 分区类型不再限制 4 种，改为逐个探测引导扇区\n· 新增 GPT 支持、exFAT 明确提示、块大小自适应\n"
+          }
+          JSON
+      - name: Commit artifacts
+        run: |
+          set -euo pipefail
+          git config user.name "katan-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add apk/KaTan_5.32.apk update.json
+          git commit -m "release: 5.32 (v85)" || echo "nothing to commit"
+          git push
