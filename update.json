@@ -1,14 +1,14 @@
 {
-  "versionCode": 81,
-  "versionName": "5.28",
-  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.28.apk",
+  "versionCode": 82,
+  "versionName": "5.29",
+  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.29.apk",
   "urls": [
-    "https://aka.doubaocdn.com/s/IsRg5blWfj",
-    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.28.apk",
-    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.28/KaTan_5.28.apk",
-    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.28.apk",
-    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.28.apk"
+    "https://aka.doubaocdn.com/s/83j7I7XlXv",
+    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.29.apk",
+    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.29/KaTan_5.29.apk",
+    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.29.apk",
+    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.29.apk"
   ],
   "force": false,
-  "notes": "卡探 5.28\n\n· Provider 路径前缀改为 /f/（D8）\n· 日志面板后台读 + 只读尾部 96KB（D9）\n· 导出日志改后台线程（D9）\n· 扫描结果上限 8000 条（D10）"
+  "notes": "卡探 5.29\n\n· 全局崩溃捕获，闪退自动写 crash-*.log（含堆栈/机型/版本/内存日志）\n· 下次启动提示并可导出，抽屉「崩溃记录」可查看与清空"
 }
