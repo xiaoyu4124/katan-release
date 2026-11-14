@@ -1,0 +1,64 @@
+name: release-526
+on:
+  push:
+    paths:
+      - '.github/workflows/rel-526.yml'
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download and verify APK
+        run: |
+          set -euo pipefail
+          curl -fL --retry 3 -o /tmp/KaTan_5.26.apk "https://aka.doubaocdn.com/s/3z083p6WvL"
+          echo "f40f7ceaee4b1bd5c22d793178c955b754d16f00dd7c0f710b6375745bf35f38  /tmp/KaTan_5.26.apk" | sha256sum -c -
+          ls -l /tmp/KaTan_5.26.apk
+          mkdir -p apk
+          cp /tmp/KaTan_5.26.apk apk/KaTan_5.26.apk
+      - name: Write release notes
+        run: |
+          cat > /tmp/notes.md <<'MD'
+          卡探 5.26（第一批缺陷修复）
+
+          · 修复移动/复制超过 12 层目录时静默截断、且移动随后删除源目录导致文件丢失（D1，P0）
+          · 修复覆盖式复制先删旧文件再写入，失败或取消后新旧文件同时丢失（D2，P1）
+          · 复制改为先写 .part 临时文件，成功落盘后再改名替换；失败只清理临时文件
+          · 目录复制改为迭代实现，不再有深度上限
+          · 同路径粘贴时跳过，不再自我覆盖
+          MD
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v5.26 apk/KaTan_5.26.apk --title "卡探 5.26" --notes-file /tmp/notes.md --latest
+      - name: Update update.json
+        run: |
+          cat > update.json <<'JSON'
+          {
+            "versionCode": 79,
+            "versionName": "5.26",
+            "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.26.apk",
+            "urls": [
+              "https://aka.doubaocdn.com/s/3z083p6WvL",
+              "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.26.apk",
+              "https://github.com/xiaoyu4124/katan-release/releases/download/v5.26/KaTan_5.26.apk",
+              "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.26.apk",
+              "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.26.apk"
+            ],
+            "force": false,
+            "notes": "卡探 5.26\n\n· 修复超过 12 层目录移动时静默截断并删除源目录导致文件丢失（D1）\n· 修复覆盖式复制先删旧文件导致失败/取消后数据丢失（D2）\n· 复制改为 .part 临时文件 + 落盘后改名替换\n· 目录复制改为迭代实现，移除深度上限"
+          }
+          JSON
+      - name: Commit artifacts
+        run: |
+          set -euo pipefail
+          git config user.name "katan-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add apk/KaTan_5.26.apk update.json
+          git commit -m "release: 5.26 (v79)" || echo "nothing to commit"
+          git push
