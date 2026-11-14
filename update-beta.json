@@ -1,13 +1,13 @@
 {
   "channel": "beta",
-  "versionCode": 136,
-  "versionName": "5.83-beta",
-  "url": "https://aka.doubaocdn.com/s/S6jgw7KPeb",
+  "versionCode": 137,
+  "versionName": "5.84-beta",
+  "url": "https://aka.doubaocdn.com/s/eGuG6wRcSz",
   "urls": [
-    "https://aka.doubaocdn.com/s/S6jgw7KPeb"
+    "https://aka.doubaocdn.com/s/eGuG6wRcSz"
   ],
-  "sha256": "fe8d7a52aff5c6bded18d7beca19cd20abe9e6e7502ac0a6ec6220e6c0d6b35d",
+  "sha256": "1f79eea7ce450c577eb58c2886474e14c49e3e37675b23d7cce1897342eef287",
   "size": 197396,
   "force": false,
-  "notes": "卡探 5.83（测试版 · 独立包 com.cardprobe.beta）\n\n· 生成隐藏目录提速：把「每个扇区发一条 USB 命令」改成「内存里攒改动、最后一次性落盘」。目录簇整簇一次写（32 KB 簇原来 64 条写命令 → 1～2 条）；FAT 扇区只读一次，改动攒到最后统一写回（原来每改一个簇项要读 1 写 1 ×2 份 FAT = 4 条命令）；找空闲簇改成逐 FAT 扇区走缓存扫描（原来一次读 128 扇区）；createDir 不再对同一簇清零后又整体重写。\n· 目录簇缓存：同一簇在整条链构建期间只从卡上读一次，每层「读父目录→找空槽→写回」由 3 读 1 写降到 1 读 1 写。\n· 回读校验前会丢弃缓存，校验仍然是从卡上真读一遍，不是读内存。\n· 新增日志：OTG CHAIN rebuild / ensurePath 两段耗时 + 累计命令数（ops=），下次可以按数据继续砍。\n· 版本号 136，正式版仍是 5.82 未动；本包通道固定测试版，只读 update-beta.json。\n· 下载源：先给 CDN 主源；镜像进仓库后再补 raw / jsDelivr / ghfast 三条备用源。\n"
+  "notes": "卡探 5.84（测试版 · 独立包 com.cardprobe.beta）\n\n· 修「写入成功后不自动跳转到隐藏区」：原来只等 12 秒卡挂回来，等不到就只弹结果不跳；现在最多等 30 秒挂载，挂回来后再等最长 20 秒，等到系统真能列出隐藏区才跳，跳之前还会重试 4 次。\n· 结果弹窗里会写清楚：卡已挂回 / 隐藏区能否列出，列不出会告诉你等几秒点抽屉里的「隐藏区」。\n· 保留 5.83 的生成提速：目录簇整簇一次写、FAT 扇区只读一次最后统一回写、找空簇逐扇区走缓存、目录簇一次读一次写、createDir 不再双重清零。\n· 新增日志：OTG REMOUNT …back=? wait=?ms、OTG SYSVISIBLE=?（跳转到底卡在哪一步，这两行直接看得出来）。\n· 版本号 137，正式版仍是 5.82 未动。\n"
 }
