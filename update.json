@@ -1,14 +1,14 @@
 {
-  "versionCode": 101,
-  "versionName": "5.48",
-  "url": "https://aka.doubaocdn.com/s/zRvcjqKHyy",
+  "versionCode": 102,
+  "versionName": "5.49",
+  "url": "https://aka.doubaocdn.com/s/w5w5iTfB3S",
   "urls": [
-    "https://aka.doubaocdn.com/s/zRvcjqKHyy",
+    "https://aka.doubaocdn.com/s/w5w5iTfB3S",
     "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.49.apk",
     "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.49.apk"
   ],
-  "sha256": "8856852752616bf0d69ea6063ffefee8ac3885ac0977ee97ed78f8d3fff893cc",
+  "sha256": "720f20eb300b0ae0c67045cdf00484128bed31dfcbf1b109c9123636331eac8d",
   "size": 185108,
   "force": false,
-  "notes": "卡探 5.48\n\n· 隐藏区（外接卡）：抽屉新增入口，直接进入卡上隐藏链\n· 界面按长名显示（MICROSOFT-7701091-6666888-16826688），不再出现 MICROS~1 短名和方块；卡上字节不改，别的 App / 电脑看不见\n· 隐藏区里可正常复制出来、也可复制进去（写-回读-导出-导入已实机验证）\n· 入口定位改用系统存储卷接口，Android 11+ 也能找到内存卡\n· 目录列表支持下拉刷新：拖到顶部下拉、松手即重读，空白处新增的文件立刻可见\n"
+  "notes": "卡探 5.49\n\n· 修复：点进文件夹后，原来那一行不再残留浅色高亮（按下去时的按压反馈改成每行自己画，不再用全局选择条）\n· 隐藏区（外接卡）：抽屉入口直进卡上隐藏链，界面显示长名 MICROSOFT-7701091-6666888-16826688，不出现 MICROS~1 和方块；卡上字节不改\n· 隐藏区可双向复制（写入/回读/导出/导入已实机逐条验证）\n· 目录列表下拉刷新：拖到顶部下拉、松手重读\n· 发版工程：新增 mirror-apk 工作流，APK 会同步镜像一份到仓库，下载多一个备用源\n"
 }
