@@ -1,14 +1,14 @@
 {
-  "versionCode": 85,
-  "versionName": "5.32",
-  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.32.apk",
+  "versionCode": 86,
+  "versionName": "5.33",
+  "url": "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.33.apk",
   "urls": [
-    "https://aka.doubaocdn.com/s/FHJ2XuzNtX",
-    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.32.apk",
-    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.32/KaTan_5.32.apk",
-    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.32.apk",
-    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.32.apk"
+    "https://aka.doubaocdn.com/s/BXSM7gV92D",
+    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.33.apk",
+    "https://github.com/xiaoyu4124/katan-release/releases/download/v5.33/KaTan_5.33.apk",
+    "https://ghfast.top/https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.33.apk",
+    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.33.apk"
   ],
   "force": false,
-  "notes": "卡探 5.32\n\n· 修复 MBR 起始 LBA 大小端错误（166 被读成 2785017856）\n· 分区类型不再限制 4 种，改为逐个探测引导扇区\n· 新增 GPT 支持、exFAT 明确提示、块大小自适应\n"
+  "notes": "卡探 5.33\n\n· USB 失败自动清 halt 并重试（修“CBW 发送失败”）\n· 新增 USB 自检：端点/TUR/INQUIRY/容量/LBA0\n"
 }
