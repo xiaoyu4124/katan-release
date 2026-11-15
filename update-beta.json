@@ -1,13 +1,13 @@
 {
   "channel": "beta",
-  "versionCode": 140,
-  "versionName": "5.87-beta",
-  "url": "https://aka.doubaocdn.com/s/ECQMpBQ3TA",
+  "versionCode": 141,
+  "versionName": "5.88-beta",
+  "url": "https://aka.doubaocdn.com/s/kkBqDEi6Rp",
   "urls": [
-    "https://aka.doubaocdn.com/s/ECQMpBQ3TA"
+    "https://aka.doubaocdn.com/s/kkBqDEi6Rp"
   ],
-  "sha256": "2f83e388277a0babd8fe37da427a21126f2bd7b07322b540383d47444e6c517e",
+  "sha256": "703bab2a387fbc0cc28a647f653296b786e3da3d045f0e9eefb950331f119c6d",
   "size": 197396,
   "force": false,
-  "notes": "卡探 5.87（测试版 · 独立包 com.cardprobe.beta）\n\n· 修：卸载后退到 /storage 那层（系统挂载点，应用无权列表，两栏空）的问题。\n· /storage、/、/mnt、/mnt/media_rw 这类系统根一律不当落脚点（isRestrictedDir 句型）。\n· 落点顺序：这一卷的根（/storage/<卷 UUID>，uuid 从当前路径现场取，不写死）→ 逐级往上找可读目录 → 内部存储根 → 存储列表。\n· 新增自愈：每次进前台把停在不可读系统根上的那栏拉回来，上次退错地方不会再卡住。\n· 5.83 生成提速、5.84 写成功自动跳转、5.85 卸载自动退出并刷新、5.86 退到卷根，全部保留。\n· 版本号 140，正式版仍是 5.82 未动。\n"
+  "notes": "卡探 5.88（测试版 · 独立包 com.cardprobe.beta）\n\n· 生成隐藏区再提速（不改 FAT32 语义，回滚粒度不变）：\n  - FAT 扇区一次预读 16 个（8 KB），找空闲簇不再一个扇区一条 USB 命令。\n  - FAT 写回把连号扇区合并成一次写，一条目录链的 FAT 改动从每簇 2 条降到 2~4 条。\n  - 空闲簇分配加游标，从上次分配位置继续扫，不从簇 3 重新找。\n· 新增阶段计时：OTG PURGE / OTG VERIFY 也带 ms 与 ops 数，能看出时间花在哪。\n· 5.87 退出落点（卷根、不用 /storage、uuid 不写死）+ 5.85 卸载自退 + 5.84 自动跳转 + 5.83 提速 全部保留。\n· 版本号 141，正式版仍是 5.82 未动。\n"
 }
