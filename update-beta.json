@@ -1,13 +1,14 @@
 {
   "channel": "beta",
-  "versionCode": 143,
-  "versionName": "5.90-beta",
-  "url": "https://aka.doubaocdn.com/s/beyHS0M8Sc",
+  "versionCode": 157,
+  "versionName": "5.99.5-beta",
+  "url": "https://aka.doubaocdn.com/s/sfdPFeLV7U",
   "urls": [
-    "https://aka.doubaocdn.com/s/beyHS0M8Sc"
+    "https://aka.doubaocdn.com/s/sfdPFeLV7U"
   ],
-  "sha256": "3ee48bfd3b4c3f509d4f1e1537695f5fbc4cf0ed004455dee2a47509317fa51e",
-  "size": 197396,
+  "sha256": "a9709a05032ea2c9b6def2e747626bd269f0ebf94af486b735800e14a85a74b7",
+  "size": 205588,
   "force": false,
-  "notes": "卡探 5.90（测试版 · 独立包 com.cardprobe.beta）\n\n· 读/写块上限不再“一次失败就永钉在 1 块”：\n  - 只有真失败才下调，且连续 16 次成功就把上限翻倍抬回去（读 64 块 / 写 32 块封顶）。\n  - 真机实测回读校验 382ms / 448 条命令 → 26ms / 7 条命令（7 个簇各一条命令读完）。\n· 写完成后的等待改为“先密后疏”轮询：挂回探测 100ms 一次（原来 500ms），回挂等待 1508ms → 1136ms。\n· 5.83~5.89 全部保留：整簇写、FAT 预读 16 扇区、连号脏扇区合并写、空闲簇游标、卸载自退、卷根落点（uuid 不写死）、写成功自动跳隐藏区。\n· 版本号 143，正式版仍是 5.82 未动。\n"
+  "notes": "卡探 5.99.5（测试版 · 独立包 com.cardprobe.beta，可与正式版同时安装）\n\n· 隐藏区检测不再写死 RECYCLER88 等三个常量，改成结构规则判定：卷根下一层任一目录，只要子树里能找到「带尾点的长名 → $$$ → com8.{GUID}」这条链，就认定为隐藏区。HIDX1…HIDX5、中文名、我的私藏区这类任意命名全部命中\n· 生成前先探测：卡上已有隐藏区就直接跳过（不再重复建链、卷根不再堆一堆壳子）\n· 拆除走同一套规则判定，任意名字的链都能整棵拆干净\n· 浏览层同步改成看结构不看名字：点进任意命名的隐藏区会自动落到短名层，可以逐层进到最里层（$$$ → com8.{GUID} → su-heng/local/4124），返回时自动跳过空壳层回到卡根\n· 修掉把内部存储 /storage/emulated/0/workspace 这类容器误判成隐藏区的问题；规则只认卷根下一层，普通文件夹里深埋的链不参与整棵删除\n· 返回上级保留原来的滚动位置，不再跳回列表顶部\n· 新增分类速查：一键按音频/视频/图片/文档等类别扫描\n· 本包是测试版（com.cardprobe.beta），与正式版 com.cardprobe 可同时安装\n",
+  "channel_note": "beta"
 }
