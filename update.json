@@ -1,14 +1,14 @@
 {
   "channel": "stable",
-  "versionCode": 143,
-  "versionName": "5.90",
-  "url": "https://aka.doubaocdn.com/s/481JMPZzJq",
+  "versionCode": 157,
+  "versionName": "5.99.5",
+  "url": "https://aka.doubaocdn.com/s/IoZxIuB0IW",
   "urls": [
-    "https://aka.doubaocdn.com/s/481JMPZzJq"
+    "https://aka.doubaocdn.com/s/IoZxIuB0IW"
   ],
-  "sha256": "906ac4b943ab2a330b73982150ec5c4f5c3d725b2ada988e3b08538fb1f94e98",
-  "size": 197396,
+  "sha256": "75aa8ea5f5bf29c2dc3ed47e73764c461d453e87948bc5dac5fcff579bb456f3",
+  "size": 205588,
   "force": false,
-  "notes": "卡探 5.90\n\n· OTG 生成隐藏区大提速：读/写块上限改成可自愈，只有真失败才下调，连续 16 次成功就把上限翻倍抬回去（读 64 块 / 写 32 块）。真机实测回读校验 382ms / 448 条命令 → 26ms / 7 条命令\n· 写完成后的等待改为先密后疏轮询（前 80 次 100ms、之后 500ms），回挂等待 1508ms → 1136ms\n· FAT 预读 16 扇区、整簇读写、连号脏扇区合并写、空闲簇游标，减少 USB 命令条数\n· 目录发布等待同样先密后疏，生成完自动跳进隐藏区，不需要手动刷新\n· 拆隐藏区：不读容量、只发必要命令，拆完自动刷双栏\n· 卷根落点按卡 UUID 动态识别，不写死路径\n· 更新通道分正式版 / 测试版，本包是正式版（com.cardprobe，可与测试版同时安装）\n",
+  "notes": "卡探 5.99.5\n\n· 隐藏区检测不再写死 RECYCLER88 等三个常量，改成结构规则判定：卷根下一层任一目录，只要子树里能找到「带尾点的长名 → $$$ → com8.{GUID}」这条链，就认定为隐藏区。HIDX1…HIDX5、中文名、我的私藏区这类任意命名全部命中\n· 生成前先探测：卡上已有隐藏区就直接跳过（不再重复建链、卷根不再堆一堆壳子）\n· 拆除走同一套规则判定，任意名字的链都能整棵拆干净\n· 浏览层同步改成看结构不看名字：点进任意命名的隐藏区会自动落到短名层，可以逐层进到最里层（$$$ → com8.{GUID} → su-heng/local/4124），返回时自动跳过空壳层回到卡根\n· 修掉把内部存储 /storage/emulated/0/workspace 这类容器误判成隐藏区的问题；规则只认卷根下一层，普通文件夹里深埋的链不参与整棵删除\n· 返回上级保留原来的滚动位置，不再跳回列表顶部\n· 新增分类速查：一键按音频/视频/图片/文档等类别扫描\n· 本包是正式版（com.cardprobe），可与测试版 com.cardprobe.beta 同时安装\n",
   "channel_note": "stable"
 }
