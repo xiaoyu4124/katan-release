@@ -1,14 +1,14 @@
 {
   "channel": "stable",
-  "versionCode": 160,
-  "versionName": "5.99.8",
-  "url": "https://aka.doubaocdn.com/s/hUVwFU1754",
+  "versionCode": 161,
+  "versionName": "5.99.9",
+  "url": "https://aka.doubaocdn.com/s/9TSQXDzp8u",
   "urls": [
-    "https://aka.doubaocdn.com/s/hUVwFU1754"
+    "https://aka.doubaocdn.com/s/9TSQXDzp8u"
   ],
-  "sha256": "47ee646d78cda20044869ba7ddaf33691be1d5b355711cf6960181ca004af39d",
+  "sha256": "a825b5bb9a94d65d27942ccb04e57fc9336d0d898e35050b797a48174c63e7f4",
   "size": 205588,
   "force": false,
-  "notes": "卡探 5.99.8\n\n· 修「隐藏区（外接卡）」在真机上点不进去的问题：FAT 的 8.3 短名（MICROS~1）在 readdir 里看不到，原来靠目录遍历判链，于是永远判成「没有隐藏区」。改成按名 stat 探测——先试固定名，再对每个一级目录 stat MICROS~1 / $$$，命中就一路下潜到底\n· 顶层目录名改成什么都认：不再写死 RECYCLER88，符合链路结构的目录都会被识别\n· 裸读（生成 / 拆除 / 只读探测）时把卡根真实目录名含 8.3 短名缓存下来，之后点「隐藏区」直接按缓存名 stat，不用再抢读卡器也看得见被系统藏起来的名字\n· 本包是正式版（com.cardprobe），可与测试版 com.cardprobe.beta 同时安装\n",
+  "notes": "卡探 5.99.9\n\n· 扫描结果面板里「[隐藏目录] / [隐藏音频] / [隐藏文件]」这几个文字前缀去掉了，标题只留文件名，长名字不再被前缀挤掉\n· 改成图标右下角一个青色小圆点角标来标识隐藏扫描命中的条目，文件夹 / 音频 / 普通文件都带\n· 条目类型和点击行为没变，进目录、打开文件照旧；「[新增]」这个版本间差异标记保留\n· 本包是正式版（com.cardprobe），可与测试版 com.cardprobe.beta 同时安装\n",
   "channel_note": "stable"
 }
