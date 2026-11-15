@@ -1,13 +1,13 @@
 {
   "channel": "beta",
-  "versionCode": 141,
-  "versionName": "5.88-beta",
-  "url": "https://aka.doubaocdn.com/s/kkBqDEi6Rp",
+  "versionCode": 143,
+  "versionName": "5.90-beta",
+  "url": "https://aka.doubaocdn.com/s/beyHS0M8Sc",
   "urls": [
-    "https://aka.doubaocdn.com/s/kkBqDEi6Rp"
+    "https://aka.doubaocdn.com/s/beyHS0M8Sc"
   ],
-  "sha256": "703bab2a387fbc0cc28a647f653296b786e3da3d045f0e9eefb950331f119c6d",
+  "sha256": "3ee48bfd3b4c3f509d4f1e1537695f5fbc4cf0ed004455dee2a47509317fa51e",
   "size": 197396,
   "force": false,
-  "notes": "卡探 5.88（测试版 · 独立包 com.cardprobe.beta）\n\n· 生成隐藏区再提速（不改 FAT32 语义，回滚粒度不变）：\n  - FAT 扇区一次预读 16 个（8 KB），找空闲簇不再一个扇区一条 USB 命令。\n  - FAT 写回把连号扇区合并成一次写，一条目录链的 FAT 改动从每簇 2 条降到 2~4 条。\n  - 空闲簇分配加游标，从上次分配位置继续扫，不从簇 3 重新找。\n· 新增阶段计时：OTG PURGE / OTG VERIFY 也带 ms 与 ops 数，能看出时间花在哪。\n· 5.87 退出落点（卷根、不用 /storage、uuid 不写死）+ 5.85 卸载自退 + 5.84 自动跳转 + 5.83 提速 全部保留。\n· 版本号 141，正式版仍是 5.82 未动。\n"
+  "notes": "卡探 5.90（测试版 · 独立包 com.cardprobe.beta）\n\n· 读/写块上限不再“一次失败就永钉在 1 块”：\n  - 只有真失败才下调，且连续 16 次成功就把上限翻倍抬回去（读 64 块 / 写 32 块封顶）。\n  - 真机实测回读校验 382ms / 448 条命令 → 26ms / 7 条命令（7 个簇各一条命令读完）。\n· 写完成后的等待改为“先密后疏”轮询：挂回探测 100ms 一次（原来 500ms），回挂等待 1508ms → 1136ms。\n· 5.83~5.89 全部保留：整簇写、FAT 预读 16 扇区、连号脏扇区合并写、空闲簇游标、卸载自退、卷根落点（uuid 不写死）、写成功自动跳隐藏区。\n· 版本号 143，正式版仍是 5.82 未动。\n"
 }
