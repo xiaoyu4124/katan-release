@@ -1,14 +1,14 @@
 {
   "channel": "stable",
-  "versionCode": 158,
-  "versionName": "5.99.6",
-  "url": "https://aka.doubaocdn.com/s/vjd0PAGbwY",
+  "versionCode": 160,
+  "versionName": "5.99.8",
+  "url": "https://aka.doubaocdn.com/s/hUVwFU1754",
   "urls": [
-    "https://aka.doubaocdn.com/s/vjd0PAGbwY"
+    "https://aka.doubaocdn.com/s/hUVwFU1754"
   ],
-  "sha256": "dcaa26afee3608c9dfb0cdc2da0870061fe333257694e9e833b024570218d7e4",
+  "sha256": "47ee646d78cda20044869ba7ddaf33691be1d5b355711cf6960181ca004af39d",
   "size": 205588,
   "force": false,
-  "notes": "卡探 5.99.6\n\n· 修「导出扫描结果」落点：选「当前窗格目录」现在真的写到当前窗格所在目录——窗格在内部存储就写 /storage/emulated/0，在卡内就写卡内，不再一律甩到内存卡根目录\n· 只有当窗格停在 /storage 这类系统挂载点（应用无权写）时才回退到内存卡根目录\n· 「内存卡根目录」三个选项行为不变\n· 本包是正式版（com.cardprobe），可与测试版 com.cardprobe.beta 同时安装\n",
+  "notes": "卡探 5.99.8\n\n· 修「隐藏区（外接卡）」在真机上点不进去的问题：FAT 的 8.3 短名（MICROS~1）在 readdir 里看不到，原来靠目录遍历判链，于是永远判成「没有隐藏区」。改成按名 stat 探测——先试固定名，再对每个一级目录 stat MICROS~1 / $$$，命中就一路下潜到底\n· 顶层目录名改成什么都认：不再写死 RECYCLER88，符合链路结构的目录都会被识别\n· 裸读（生成 / 拆除 / 只读探测）时把卡根真实目录名含 8.3 短名缓存下来，之后点「隐藏区」直接按缓存名 stat，不用再抢读卡器也看得见被系统藏起来的名字\n· 本包是正式版（com.cardprobe），可与测试版 com.cardprobe.beta 同时安装\n",
   "channel_note": "stable"
 }
