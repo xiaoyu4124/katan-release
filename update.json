@@ -1,16 +1,14 @@
 {
-  "versionCode": 134,
-  "versionName": "5.81",
-  "url": "https://aka.doubaocdn.com/s/YhB2YRfimY",
+  "channel": "stable",
+  "versionCode": 143,
+  "versionName": "5.90",
+  "url": "https://aka.doubaocdn.com/s/481JMPZzJq",
   "urls": [
-    "https://aka.doubaocdn.com/s/YhB2YRfimY",
-    "https://gitee.com/yu1481726037/katan-release/raw/master/apk/KaTan_5.81.apk",
-    "https://raw.githubusercontent.com/xiaoyu4124/katan-release/main/apk/KaTan_5.81.apk",
-    "https://cdn.jsdelivr.net/gh/xiaoyu4124/katan-release@main/apk/KaTan_5.81.apk"
+    "https://aka.doubaocdn.com/s/481JMPZzJq"
   ],
-  "sha256": "a41a1417f7d5490ce955b2bdce001b3e5ce3a479a0c123424033a965097c50e3",
-  "size": 193300,
+  "sha256": "906ac4b943ab2a330b73982150ec5c4f5c3d725b2ada988e3b08538fb1f94e98",
+  "size": 197396,
   "force": false,
-  "notes": "卡探 5.81\n\n· OTG 提速：每条命令不再先做一次 BOT 复位。老读卡器（13468:1048）上这一步每次必然失败并耗满 8 秒，拆一条卡要白等 150 秒左右；现在只有失败才复位\n· 拆隐藏区不再读容量，再省一次必然失败的 8 秒命令\n· 拆完自动刷双栏：还存在的目录原地重读，挂在隐藏区里的那一栏退回卡根\n· 探测仍先走系统挂载的文件接口，只有真正写扇区才接管读卡器\n· 更新通道分正式版 / 测试版：⋯ 菜单可切换，正式版只推验证过的包\n· 保留预热读与重建连接作兜底\n· 下载源：CDN 主力，Gitee / GitHub raw / jsDelivr 三条备源\n",
-  "channel": "stable"
+  "notes": "卡探 5.90\n\n· OTG 生成隐藏区大提速：读/写块上限改成可自愈，只有真失败才下调，连续 16 次成功就把上限翻倍抬回去（读 64 块 / 写 32 块）。真机实测回读校验 382ms / 448 条命令 → 26ms / 7 条命令\n· 写完成后的等待改为先密后疏轮询（前 80 次 100ms、之后 500ms），回挂等待 1508ms → 1136ms\n· FAT 预读 16 扇区、整簇读写、连号脏扇区合并写、空闲簇游标，减少 USB 命令条数\n· 目录发布等待同样先密后疏，生成完自动跳进隐藏区，不需要手动刷新\n· 拆隐藏区：不读容量、只发必要命令，拆完自动刷双栏\n· 卷根落点按卡 UUID 动态识别，不写死路径\n· 更新通道分正式版 / 测试版，本包是正式版（com.cardprobe，可与测试版同时安装）\n",
+  "channel_note": "stable"
 }
