@@ -1,14 +1,14 @@
 {
   "channel": "stable",
-  "versionCode": 157,
-  "versionName": "5.99.5",
-  "url": "https://aka.doubaocdn.com/s/IoZxIuB0IW",
+  "versionCode": 158,
+  "versionName": "5.99.6",
+  "url": "https://aka.doubaocdn.com/s/vjd0PAGbwY",
   "urls": [
-    "https://aka.doubaocdn.com/s/IoZxIuB0IW"
+    "https://aka.doubaocdn.com/s/vjd0PAGbwY"
   ],
-  "sha256": "75aa8ea5f5bf29c2dc3ed47e73764c461d453e87948bc5dac5fcff579bb456f3",
+  "sha256": "dcaa26afee3608c9dfb0cdc2da0870061fe333257694e9e833b024570218d7e4",
   "size": 205588,
   "force": false,
-  "notes": "卡探 5.99.5\n\n· 隐藏区检测不再写死 RECYCLER88 等三个常量，改成结构规则判定：卷根下一层任一目录，只要子树里能找到「带尾点的长名 → $$$ → com8.{GUID}」这条链，就认定为隐藏区。HIDX1…HIDX5、中文名、我的私藏区这类任意命名全部命中\n· 生成前先探测：卡上已有隐藏区就直接跳过（不再重复建链、卷根不再堆一堆壳子）\n· 拆除走同一套规则判定，任意名字的链都能整棵拆干净\n· 浏览层同步改成看结构不看名字：点进任意命名的隐藏区会自动落到短名层，可以逐层进到最里层（$$$ → com8.{GUID} → su-heng/local/4124），返回时自动跳过空壳层回到卡根\n· 修掉把内部存储 /storage/emulated/0/workspace 这类容器误判成隐藏区的问题；规则只认卷根下一层，普通文件夹里深埋的链不参与整棵删除\n· 返回上级保留原来的滚动位置，不再跳回列表顶部\n· 新增分类速查：一键按音频/视频/图片/文档等类别扫描\n· 本包是正式版（com.cardprobe），可与测试版 com.cardprobe.beta 同时安装\n",
+  "notes": "卡探 5.99.6\n\n· 修「导出扫描结果」落点：选「当前窗格目录」现在真的写到当前窗格所在目录——窗格在内部存储就写 /storage/emulated/0，在卡内就写卡内，不再一律甩到内存卡根目录\n· 只有当窗格停在 /storage 这类系统挂载点（应用无权写）时才回退到内存卡根目录\n· 「内存卡根目录」三个选项行为不变\n· 本包是正式版（com.cardprobe），可与测试版 com.cardprobe.beta 同时安装\n",
   "channel_note": "stable"
 }
