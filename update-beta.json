@@ -1,14 +1,14 @@
 {
   "channel": "beta",
-  "versionCode": 157,
-  "versionName": "5.99.5-beta",
-  "url": "https://aka.doubaocdn.com/s/sfdPFeLV7U",
+  "versionCode": 166,
+  "versionName": "5.99.14-beta",
+  "url": "https://aka.doubaocdn.com/s/sYC83zHzQi",
   "urls": [
-    "https://aka.doubaocdn.com/s/sfdPFeLV7U"
+    "https://aka.doubaocdn.com/s/sYC83zHzQi"
   ],
-  "sha256": "a9709a05032ea2c9b6def2e747626bd269f0ebf94af486b735800e14a85a74b7",
-  "size": 205588,
+  "sha256": "1df8f31e999eea6af152c1e57fc247967d87db6b24f8c242380d60fbeb6d1fcf",
+  "size": 213851,
   "force": false,
-  "notes": "卡探 5.99.5（测试版 · 独立包 com.cardprobe.beta，可与正式版同时安装）\n\n· 隐藏区检测不再写死 RECYCLER88 等三个常量，改成结构规则判定：卷根下一层任一目录，只要子树里能找到「带尾点的长名 → $$$ → com8.{GUID}」这条链，就认定为隐藏区。HIDX1…HIDX5、中文名、我的私藏区这类任意命名全部命中\n· 生成前先探测：卡上已有隐藏区就直接跳过（不再重复建链、卷根不再堆一堆壳子）\n· 拆除走同一套规则判定，任意名字的链都能整棵拆干净\n· 浏览层同步改成看结构不看名字：点进任意命名的隐藏区会自动落到短名层，可以逐层进到最里层（$$$ → com8.{GUID} → su-heng/local/4124），返回时自动跳过空壳层回到卡根\n· 修掉把内部存储 /storage/emulated/0/workspace 这类容器误判成隐藏区的问题；规则只认卷根下一层，普通文件夹里深埋的链不参与整棵删除\n· 返回上级保留原来的滚动位置，不再跳回列表顶部\n· 新增分类速查：一键按音频/视频/图片/文档等类别扫描\n· 本包是测试版（com.cardprobe.beta），与正式版 com.cardprobe 可同时安装\n",
+  "notes": "卡探 5.99.14（测试版 · 独立包 com.cardprobe.beta，可与正式版同时安装）\n\n与正式版 5.99.14 同步，可与正式版并装\n\n· 隐藏区拆除现在真正回收空间了：整条隐藏链递归释放，目录、子目录、里面的文件簇全部逐簇归还，实测拆掉一条带 16MB 文件的链后系统可用空间即时回落\n· 修复「拆完了但可用空间一点没变」的老问题：FAT 表的改动现在会完整写回卡上两份 FAT 副本，不再出现目录看着删干净、簇却还在占用的孤儿状态\n· 修复拆完后「卡没挂回来」的误报，挂回检测改成直接查系统挂载目录，并延长了等待窗口\n· 修复目录名缓存在拆除后不失效、卡根重复出现同名目录的问题\n· 修复新建隐藏目录时间戳显示为 1980-01-01 的问题\n· 收窄了历史残留目录项的判定条件，只清理真正属于本程序的隐藏链，不再误伤其他 RECYCL 前缀目录\n· FAT16 卡的「写入生成」已放开，16GB 以下老卡也能生成隐藏区\n",
   "channel_note": "beta"
 }
