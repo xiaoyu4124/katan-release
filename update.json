@@ -1,14 +1,14 @@
 {
   "channel": "stable",
-  "versionCode": 161,
-  "versionName": "5.99.9",
-  "url": "https://aka.doubaocdn.com/s/9TSQXDzp8u",
+  "versionCode": 166,
+  "versionName": "5.99.14",
+  "url": "https://aka.doubaocdn.com/s/HfjTqVA76P",
   "urls": [
-    "https://aka.doubaocdn.com/s/9TSQXDzp8u"
+    "https://aka.doubaocdn.com/s/HfjTqVA76P"
   ],
-  "sha256": "a825b5bb9a94d65d27942ccb04e57fc9336d0d898e35050b797a48174c63e7f4",
-  "size": 205588,
+  "sha256": "63e6e978742182b4d3d89ab3a9199a2ef4f11dde602f14b362cdb75a27d46e5b",
+  "size": 213851,
   "force": false,
-  "notes": "卡探 5.99.9\n\n· 扫描结果面板里「[隐藏目录] / [隐藏音频] / [隐藏文件]」这几个文字前缀去掉了，标题只留文件名，长名字不再被前缀挤掉\n· 改成图标右下角一个青色小圆点角标来标识隐藏扫描命中的条目，文件夹 / 音频 / 普通文件都带\n· 条目类型和点击行为没变，进目录、打开文件照旧；「[新增]」这个版本间差异标记保留\n· 本包是正式版（com.cardprobe），可与测试版 com.cardprobe.beta 同时安装\n",
+  "notes": "卡探 5.99.14\n\n· 隐藏区拆除现在真正回收空间了：整条隐藏链递归释放，目录、子目录、里面的文件簇全部逐簇归还，实测拆掉一条带 16MB 文件的链后系统可用空间即时回落\n· 修复「拆完了但可用空间一点没变」的老问题：FAT 表的改动现在会完整写回卡上两份 FAT 副本，不再出现目录看着删干净、簇却还在占用的孤儿状态\n· 修复拆完后「卡没挂回来」的误报，挂回检测改成直接查系统挂载目录，并延长了等待窗口\n· 修复目录名缓存在拆除后不失效、卡根重复出现同名目录的问题\n· 修复新建隐藏目录时间戳显示为 1980-01-01 的问题\n· 收窄了历史残留目录项的判定条件，只清理真正属于本程序的隐藏链，不再误伤其他 RECYCL 前缀目录\n· FAT16 卡的「写入生成」已放开，16GB 以下老卡也能生成隐藏区\n\n本包是正式版（com.cardprobe），可与测试版 com.cardprobe.beta 同时安装\n",
   "channel_note": "stable"
 }
